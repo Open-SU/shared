@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.open.su";
+option java_outer_classname = "EventGrpcProto";
+
+package event;
+
+service EventGrpc {
+  rpc ListEvents(ListEventsRequest) returns (stream ListEventsResponse) {}
+  rpc GetEventDetails(GetEventDetailsRequest) returns (GetEventDetailsResponse) {}
+  rpc CreateEvent(CreateEventRequest) returns (CreateEventResponse) {}
+  rpc UpdateEvent(UpdateEventRequest) returns (UpdateEventResponse) {}
+  rpc DeleteEvent(DeleteEventRequest) returns (DeleteEventResponse) {}
+}
+
+message ListEventsRequest {
+  optional int32 page = 1;
+  optional int32 size = 2;
+  optional string sort = 3;
+  optional string order = 4;
+}
+
+message ListEventsResponse {
+  string id = 1;
+  string name = 2;
+  optional string description = 3;
+  double price = 4;
+  optional string location = 5;
+  string start_date = 6;
+  string end_date = 7;
+}
+
+message GetEventDetailsRequest {
+  string id = 1;
+}
+
+message GetEventDetailsResponse {
+  string id = 1;
+  string name = 2;
+  optional string description = 3;
+  double price = 4;
+  optional string location = 5;
+  string start_date = 6;
+  string end_date = 7;
+  string organizer_id = 8;
+  string creator_id = 9;
+  string created_at = 10;
+  string updated_at = 11;
+}
+
+message CreateEventRequest {
+  string name = 1;
+  optional string description = 2;
+  double price = 3;
+  optional string location = 4;
+  string start_date = 5;
+  string end_date = 6;
+  string organizer_id = 7;
+}
+
+message CreateEventResponse {
+  string id = 1;
+}
+
+message UpdateEventRequest {
+  string id = 1;
+  optional string name = 2;
+  optional string description = 3;
+  optional double price = 4;
+  optional string location = 5;
+  optional string start_date = 6;
+  optional string end_date = 7;
+  optional string organizer_id = 8;
+}
+
+message UpdateEventResponse {
+  string id = 1;
+}
+
+message DeleteEventRequest {
+  string id = 1;
+}
+
+message DeleteEventResponse {}
