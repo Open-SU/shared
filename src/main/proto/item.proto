@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.open.su";
+option java_outer_classname = "ItemGrpcProto";
+
+package item;
+
+service ItemGrpc {
+  rpc ListItems(ListItemsRequest) returns (stream ListItemsResponse) {}
+  rpc GetItemDetails(GetItemDetailsRequest) returns (GetItemDetailsResponse) {}
+  rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {}
+  rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {}
+  rpc IncrementItemStock(IncrementItemStockRequest) returns (IncrementItemStockResponse) {}
+  rpc DeleteItem(DeleteItemRequest) returns (DeleteItemResponse) {}
+}
+
+message ListItemsRequest {
+  optional int32 page = 1;
+  optional int32 size = 2;
+  optional string sort = 3;
+  optional string order = 4;
+}
+
+message ListItemsResponse {
+  string id = 1;
+  optional int64 stock = 2;
+  int64 max_stock = 3;
+  optional int64 min_stock = 4;
+}
+
+message GetItemDetailsRequest {
+  string id = 1;
+}
+
+message GetItemDetailsResponse {
+  string id = 1;
+  optional int64 stock = 2;
+  int64 max_stock = 3;
+  optional int64 min_stock = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message CreateItemRequest {
+  string id = 1;
+  int64 max_stock = 4;
+  optional int64 min_stock = 5;
+}
+
+message CreateItemResponse {
+  string id = 1;
+}
+
+message UpdateItemRequest {
+  string id = 1;
+  optional int64 max_stock = 4;
+  optional int64 min_stock = 5;
+}
+
+message UpdateItemResponse {
+  string id = 1;
+}
+
+message IncrementItemStockRequest {
+  string id = 1;
+  int64 quantity = 2;
+}
+
+message IncrementItemStockResponse {
+  string id = 1;
+  int64 stock = 2;
+}
+
+message DeleteItemRequest {
+  string id = 1;
+}
+
+message DeleteItemResponse {}
