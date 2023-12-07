@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.open.su";
+option java_outer_classname = "TicketGrpcProto";
+
+package ticket;
+
+service TicketGrpc {
+  rpc ListTickets(ListTicketsRequest) returns (stream ListTicketsResponse) {}
+  rpc GetTicketDetails(GetTicketDetailsRequest) returns (GetTicketDetailsResponse) {}
+  rpc AttendEvent(AttendEventRequest) returns (AttendEventResponse) {}
+  rpc UpdateTicket(UpdateTicketRequest) returns (UpdateTicketResponse) {}
+  rpc SelectBus(SelectBusRequest) returns (SelectBusResponse) {}
+  rpc DeleteTicket(DeleteTicketRequest) returns (DeleteTicketResponse) {}
+}
+
+enum Status {
+  CREATED = 0;
+  CANCELLED = 1;
+  PAID = 2;
+  REFUNDED = 3;
+  EXCHANGED = 4;
+  SCANNED = 5;
+}
+
+message ListTicketsRequest {
+  optional int32 page = 1;
+  optional int32 size = 2;
+  optional string sort = 3;
+  optional string order = 4;
+  optional string event_id = 5;
+  optional string attendee_id = 6;
+  optional string bus_id = 7;
+}
+
+message ListTicketsResponse {
+  string id = 1;
+  string event_id = 2;
+  string attendee_id = 3;
+  optional string bus_id = 4;
+  Status status = 5;
+}
+
+message GetTicketDetailsRequest {
+  string id = 1;
+}
+
+message GetTicketDetailsResponse {
+  string id = 1;
+  string eventId = 2;
+  string attendee_id = 3;
+  optional string busId = 4;
+  Status status = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message AttendEventRequest {
+  string event_id = 1;
+  string attendee_id = 2;
+}
+
+message AttendEventResponse {
+  string id = 1;
+}
+
+message UpdateTicketRequest {
+  string id = 1;
+  optional string bus_id = 4;
+}
+
+message UpdateTicketResponse {
+  string id = 1;
+}
+
+message SelectBusRequest {
+  string id = 1;
+  string bus_id = 2;
+}
+
+message SelectBusResponse {
+  string id = 1;
+}
+
+message DeleteTicketRequest {
+  string id = 1;
+}
+
+message DeleteTicketResponse {}
